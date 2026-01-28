@@ -1,5 +1,13 @@
 <?php  
 require_once 'db.php';
+$req = mysqli_query($link, "SELECT * FROM socials");
+$data = mysqli_fetch_assoc($req);
+foreach ($data as $key => $value) {
+            $icon = ($class === "twitter") ? "bi bi-twitter-x" : "bi bi-$class";
+            echo '<a href="' . $url . '" class="' . $class . '" target="_blank">
+                    <i class="' . $icon . '"></i>
+                  </a>';
+          }
 ?>
 
 <!DOCTYPE html>
@@ -17,27 +25,7 @@ require_once 'db.php';
     </head>
     <body>
         <!--===== HEADER =====-->
-        <header class="l-header">
-            <nav class="nav bd-grid">
-                <div>
-                    <a href="#" class="nav__logo">B4ssem</a>
-                </div>
-
-                <div class="nav__menu" id="nav-menu">
-                    <ul class="nav__list">
-                        <li class="nav__item"><a href="#home" class="nav__link active-link">Accueil</a></li>
-                        <li class="nav__item"><a href="#about" class="nav__link">A propos</a></li>
-                        <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
-                        <li class="nav__item"><a href="#work" class="nav__link">Projets</a></li>
-                        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
-                    </ul>
-                </div>
-
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class='bx bx-menu'></i>
-                </div>
-            </nav>
-        </header>
+       
 
         <main class="l-main">
             <!--===== HOME =====-->
