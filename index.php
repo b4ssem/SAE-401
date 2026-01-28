@@ -1,13 +1,5 @@
 <?php  
 require_once 'db.php';
-$req = mysqli_query($link, "SELECT * FROM socials");
-$data = mysqli_fetch_assoc($req);
-foreach ($data as $key => $value) {
-            $icon = ($class === "twitter") ? "bi bi-twitter-x" : "bi bi-$class";
-            echo '<a href="' . $url . '" class="' . $class . '" target="_blank">
-                    <i class="' . $icon . '"></i>
-                  </a>';
-          }
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +17,27 @@ foreach ($data as $key => $value) {
     </head>
     <body>
         <!--===== HEADER =====-->
-       
+       <header class="l-header">
+            <nav class="nav bd-grid">
+                <div>
+                    <a href="#" class="nav__logo">B4ssem</a>
+                </div>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="#home" class="nav__link active-link">Accueil</a></li>
+                        <li class="nav__item"><a href="#about" class="nav__link">A propos</a></li>
+                        <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
+                        <li class="nav__item"><a href="#work" class="nav__link">Projets</a></li>
+                        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-menu'></i>
+                </div>
+            </nav>
+        </header>
 
         <main class="l-main">
             <!--===== HOME =====-->
@@ -37,8 +49,16 @@ foreach ($data as $key => $value) {
                 </div>
 
                 <div class="home__social">
-                    <a href="https://www.linkedin.com/in/b4ssem/" target="_blank" class="home__social-icon"><i class='bx bxl-linkedin'></i></a>
-                    <a href="https://github.com/b4ssem" target="_blank" class="home__social-icon"><i class='bx bxl-github' ></i></a>
+                    <?php 
+                        $req = "SELECT link, name FROM socials";
+                        $result = mysqli_query($link, $req);
+                        foreach ($result as $row) {
+                            $social_link = htmlspecialchars($row["link"]);
+                            $name = htmlspecialchars($row["name"]);
+
+                            echo '<a href="' . $social_link . '" class="home__social-icon" target="_blank"><i class="bx bxl-' . $name . '"></i></a>';
+                        }
+                    ?>   
                 </div>
 
                 <div class="home__img">
