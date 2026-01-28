@@ -17,7 +17,7 @@ require_once 'db.php';
     </head>
     <body>
         <!--===== HEADER =====-->
-        <header class="l-header">
+       <header class="l-header">
             <nav class="nav bd-grid">
                 <div>
                     <a href="#" class="nav__logo">B4ssem</a>
@@ -49,8 +49,16 @@ require_once 'db.php';
                 </div>
 
                 <div class="home__social">
-                    <a href="https://www.linkedin.com/in/b4ssem/" target="_blank" class="home__social-icon"><i class='bx bxl-linkedin'></i></a>
-                    <a href="https://github.com/b4ssem" target="_blank" class="home__social-icon"><i class='bx bxl-github' ></i></a>
+                    <?php 
+                        $req = "SELECT link, name FROM socials";
+                        $result = mysqli_query($link, $req);
+                        foreach ($result as $row) {
+                            $social_link = htmlspecialchars($row["link"]);
+                            $name = htmlspecialchars($row["name"]);
+
+                            echo '<a href="' . $social_link . '" class="home__social-icon" target="_blank"><i class="bx bxl-' . $name . '"></i></a>';
+                        }
+                    ?>   
                 </div>
 
                 <div class="home__img">
