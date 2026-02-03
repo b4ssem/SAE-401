@@ -50,13 +50,13 @@ require_once 'db.php';
 
                 <div class="home__social">
                     <?php 
-                        $req = "SELECT link, name FROM socials";
+                        $req = "SELECT link, icon_class FROM socials";
                         $result = mysqli_query($link, $req);
                         foreach ($result as $row) {
                             $social_link = htmlspecialchars($row["link"]);
-                            $name = htmlspecialchars($row["name"]);
+                            $name = htmlspecialchars($row["icon_class"]);
 
-                            echo '<a href="' . $social_link . '" class="home__social-icon" target="_blank"><i class="bx bxl-' . $name . '"></i></a>';
+                            echo '<a href="' . $social_link . '" class="home__social-icon" target="_blank"><i class="' . $name . '"></i></a>';
                         }
                     ?>   
                 </div>
