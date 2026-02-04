@@ -3,3 +3,6 @@ backend.php
 deconnexion.php
 login.php
 login copy.php
+auth_login.php
+auth_check.php
+includes/
