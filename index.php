@@ -1,8 +1,17 @@
 <?php  
 require_once 'includes/core/db.php';
 require_once 'includes/socials/socials_get.php';
+require_once 'includes/navbar/navbar_get.php';
+require_once 'includes/navbar/navbar_get_brand.php';
+require_once 'includes/navbar/navbar_brand.php';
 $link = getDbConnection();
 $result = getAllSocials($link);
+$navbar_list = getNavbarLinks($link);
+$brandData = getNavbarBrand($link);
+$site_brand = "";
+if ($brandData && !empty($brandData['brand'])) {
+    $site_brand = $brandData['brand'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -16,24 +25,40 @@ $result = getAllSocials($link);
         <!-- =====BOX ICONS===== -->
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-        <title>Bassem MEGHICHE</title>
+        <title><?php echo htmlspecialchars($site_brand); ?> - Développeur Web</title>
     </head>
     <body>
         <!--===== HEADER =====-->
        <header class="l-header">
             <nav class="nav bd-grid">
                 <div>
-                    <a href="#" class="nav__logo">B4ssem</a>
+                    <a href="#" class="nav__logo"><?php echo htmlspecialchars($site_brand); ?></a>
                 </div>
 
                 <div class="nav__menu" id="nav-menu">
-                    <ul class="nav__list">
-                        <li class="nav__item"><a href="#home" class="nav__link active-link">Accueil</a></li>
-                        <li class="nav__item"><a href="#about" class="nav__link">A propos</a></li>
-                        <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
-                        <li class="nav__item"><a href="#work" class="nav__link">Projets</a></li>
-                        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
-                    </ul>
+                    <div class="nav__menu" id="nav-menu">
+                        <ul class="nav__list">
+                            <?php 
+                                $is_first = true;
+
+                                foreach ($navbar_list as $nav) {
+                                    $label = htmlspecialchars($nav['label']);
+                                    $target = htmlspecialchars($nav['target']);
+                                    
+                                    if ($is_first) {
+                                        $active_class = "active-link";
+                                        $is_first = false;
+                                    } else {
+                                        $active_class = "";
+                                    }
+
+                                    echo '<li class="nav__item">
+                                            <a href="' . $target . '" class="nav__link ' . $active_class . '">' . $label . '</a>
+                                        </li>';
+                                }
+                            ?>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="nav__toggle" id="nav-toggle">
@@ -46,7 +71,7 @@ $result = getAllSocials($link);
             <!--===== HOME =====-->
             <section class="home bd-grid" id="home">
                 <div class="home__data">
-                    <h1 class="home__title">Bonjour,<br>je suis <span class="home__title-color">Bassem</span><br> Développeur Web</h1>
+                    <h1 class="home__title">Bonjour,<br>je suis <span class="home__title-color"><?php echo htmlspecialchars($site_brand); ?></span><br> Développeur Web</h1>
 
                     <a href="assets/pdf/Bassem MEGHICHE.pdf" class="button">Voir mon CV</a>
                 </div>
