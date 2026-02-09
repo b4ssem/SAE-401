@@ -116,7 +116,7 @@ $skills_list = getSkills($link);
 
                 <div class="about__container bd-grid">
                     <div class="about__img">
-                        <img src="" alt="">
+                        <img src="assets/img/about.jpg" alt="logo B4SSEM, texte blanc en majuscules sur un fond noir">
                     </div>
                     
                     <div>
