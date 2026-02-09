@@ -4,6 +4,9 @@ require_once 'includes/socials/socials_get.php';
 require_once 'includes/navbar/navbar_get.php';
 require_once 'includes/navbar/navbar_get_brand.php';
 require_once 'includes/navbar/navbar_brand.php';
+require_once 'includes/categories/categories_get.php';
+require_once 'includes/skills/skills_get.php';
+
 $link = getDbConnection();
 $result = getAllSocials($link);
 $navbar_list = getNavbarLinks($link);
@@ -12,6 +15,9 @@ $site_brand = "";
 if ($brandData && !empty($brandData['brand'])) {
     $site_brand = $brandData['brand'];
 }
+$categories = getCategories($link);
+$skills_list = getSkills($link);
+
 ?>
 
 <!DOCTYPE html>
@@ -129,110 +135,31 @@ if ($brandData && !empty($brandData['brand'])) {
                         <h2 class="skills__subtitle">Hardskills</h2>
                         <p class="skills__text">Passionné par la technique autant que par l'expérience utilisateur, je développe mes projets avec une stack moderne et polyvalente</p>
                     </div>     
-                    <div>
-                        <h3 class="skills__subtitle">Frontend</h3>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bxl bx-html5 skills__icon'></i>
-                                <span class="skills__name">HTML5</span>
-                            </div>
-                            <div class="skills__bar skills__html">
-
-                            </div>
-                            <div>
-                                <span class="skills__percentage">100%</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bxl bx-css3 skills__icon'></i>
-                                <span class="skills__name">CSS3</span>
-                            </div>
-                            <div class="skills__bar skills__css">
-                                
-                            </div>
-                            <div>
-                                <span class="skills__percentage">100%</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bxl bx-tailwind-css skills__icon'></i> 
-                                <span class="skills__name">TailwindCSS</span>
-                            </div>
-                            <div class="skills__bar skills__tailwind">
-                                
-                            </div>
-                            <div>
-                                <span class="skills__percentage">75%</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bxl bx-javascript skills__icon' ></i>
-                                <span class="skills__name">JAVASCRIPT</span>
-                            </div>
-                            <div class="skills__bar skills__js">
-                                
-                            </div>
-                            <div>
-                                <span class="skills__percentage">65%</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bxl bx-figma skills__icon'></i> 
-                                <span class="skills__name">Figma</span>
-                            </div>
-                            <div class="skills__bar skills__ux">
-                                
-                            </div>
-                            <div>
-                                <span class="skills__percentage">85%</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="skills__container">          
-                    <div>
-                        <h3 class="skills__subtitle">Backend</h3>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bxl bx-php skills__icon'></i>
-                                <span class="skills__name">PHP</span>
-                            </div>
-                            <div class="skills__bar skills__html">
-
-                            </div>
-                            <div>
-                                <span class="skills__percentage">100%</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class="bxl bx-my-sql skills__icon"></i>
-                                <span class="skills__name">MySQL</span>
-                            </div>
-                            <div class="skills__bar skills__css">
-                                
-                            </div>
-                            <div>
-                                <span class="skills__percentage">100%</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bxl bx-python skills__icon'></i> 
-                                <span class="skills__name">Python</span>
-                            </div>
-                            <div class="skills__bar skills__tailwind">
-                                
-                            </div>
-                            <div>
-                                <span class="skills__percentage">75%</span>
-                            </div>
-                        </div>
-                    </div>
+                        <?php 
+                        
+                        foreach($categories as $category){
+                            echo '<div>
+                                <h3 class="skills__subtitle">'. $category['title'] . '</h3>';
+                            foreach($skills_list as $skill){
+                                if ($skill['category_id'] == $category['id']){
+                                    echo '
+                                    <div class="skills__data">
+                                        <div class="skills__names">
+                                            <i class="'. $skill['icon_class'] .' skills__icon"></i>
+                                            <span class="skills__name">'. $skill['name'] .'</span>
+                                        </div>
+                                        <div class="skills__bar" style="width: '. $skill['percentage'] .'%; background-color: var(--first-color); height: .25rem; border-radius: .5rem;">
+                                        </div>
+                                        <div>
+                                            <span class="skills__'. $skill['name'] .'">'. $skill['percentage'] .'%</span>
+                                        </div>
+                                    </div>';
+                                }
+                            }
+                            echo '</div>';
+                        }
+                        
+                        ?>
                 </div>
             </section>
 
