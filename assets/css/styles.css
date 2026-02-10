@@ -368,6 +368,8 @@ img {
 }
 
 .project-card {
+  display: flex;
+  flex-direction: column;
   background: #fff;
   padding: 20px;
   border-radius: 16px;
@@ -403,6 +405,7 @@ img {
   display: flex;
   justify-content: center;
   gap: 10px;
+  height: 100%;
 }
 
 .btn {
@@ -415,6 +418,7 @@ img {
   transition: 0.3s;
   display: flex;
   align-items: center;
+  margin-top:auto;
   gap: 6px;
 }
 
