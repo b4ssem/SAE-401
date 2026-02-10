@@ -149,8 +149,8 @@ Once installed, navigate to the local URL (e.g., `http://localhost/SAE-401`).
 - [x] Implement Admin Panel (backend.php)
 - [x] Build CRUD for Navbar
 - [x] Build CRUD for Socials
-- [ ] Build CRUD for Global settings
-- [ ] Build CRUD for Projects
+- [X] Build CRUD for Global settings
+- [X] Build CRUD for Projects
 - [ ] Build CRUD for Contact
 - [ ] Implement Contact Form logic
 - [ ] Publish the SQL file and php files concerning the DB
