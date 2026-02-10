@@ -6,6 +6,7 @@ require_once 'includes/navbar/navbar_get_brand.php';
 require_once 'includes/navbar/navbar_brand.php';
 require_once 'includes/categories/categories_get.php';
 require_once 'includes/skills/skills_get.php';
+require_once 'includes/projects/projects_get.php';
 
 $link = getDbConnection();
 $result = getAllSocials($link);
@@ -17,6 +18,7 @@ if ($brandData && !empty($brandData['brand'])) {
 }
 $categories = getCategories($link);
 $skills_list = getSkills($link);
+$projects_list = getProjects($link);
 
 ?>
 
@@ -166,107 +168,45 @@ $skills_list = getSkills($link);
             <!--===== WORK =====-->
             <section class="work section" id="work">
                 <h2 class="section-title">Projets</h2>
-
                 <div class="work__container">
-        <div class="project-card">
-          <h3>RadarFR - Application interactive JS</h3>
-          <img src="assets/img/work2.png" alt="E-Commerce Website">
-          <div class="project-card-text">
-            <p>Application interactive en Javascript permettant de visualiser sur une carte les radars en France. Utilisation de l'API fetch.</p>
-            <div class="skills">
-                <a href="#">HTML</a>
-                <a href="#">TailwindCSS</a>
-                <a href="#">JavaScript</a>
-                <a href="#">Leaflet</a>
-                <a href="#">Google Fonts</a>
-                <a href="#">Fontawesome</a>
+                <?php 
+                
+                foreach($projects_list as $project){
+
+                    $tech_stack = explode(", ", $project['tech_stack']);
+                    $stack_html = "";
+                    foreach($tech_stack as $stack){
+                        $stack_html .= '<a href="#">'. $stack .'</a>';
+                    }
+                    $github_btn = "";
+                    $demo_btn = "";
+                    if (!empty($project['github_url'])){
+                        $github_btn = '<a href="'. $project['github_url'] .'" target="_blank" class="btn"><i class="bxl bx-github"></i> GitHub</a>';
+                    }
+                    if(!empty($project['demo_url'])){
+                        $demo_btn = '<a href="'. $project['demo_url'] .'" target="_blank" class="btn"><i class="bx bx-link"></i> Live Demo</a>';
+                    }
+                     
+                    echo '
+                    <div class="project-card">
+                        <h3>'. $project['title'] .'</h3>
+                        <img src="'. $project['image_url'] .'" alt="E-Commerce Website">
+                        <div class="project-card-text">
+                            <p>'. $project['description'] .'</p>
+                            <div class="skills">
+                                '. $stack_html .'
+                            </div>
+                        </div>
+                        <div class="btns">
+                            '. $github_btn .'
+                            '. $demo_btn .'
+                        </div>
+                    </div>
+                    ';
+                }
+                ?>
             </div>
-          </div>
-          <div class="btns">
-                <a href="#" class="btn"><i class="bxl bx-github"></i> GitHub</a>
-                <a href="#" class="btn"><i class="bx bx-link"></i> Live Demo</a>
-          </div>
-        </div>
-      <div class="project-card">
-        <h3>ApiGen</h3>
-        <img src="assets/img/work1.png" alt="Portfolio Website">
-        <div class="project-card-text">
-            <p>Programme python permettant de récupérer une information sur un site web et la tester sur l'api de ce dernier jusqu'à ce que l'api renvoie un code "200". Utilisation de Selenium</p>
-            <div class="skills">
-                <a href="#">Python</a>
-                <a href="#">Selenium</a>
-            </div>
-        </div>
-        <div class="btns">
-            <a href="https://github.com/b4ssem/ApiGen" class="btn"><i class="bxl bx-github"></i> GitHub</a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <h3>Site web portfolio</h3>
-        <img src="assets/img/work3.png" alt="Portfolio Website">
-        <div class="project-card-text">
-            <p>Site web statique permettant d'exposer mes différents projets ainsi que mes compétences. Utilisation de TailwindCSS.</p>
-            <div class="skills">
-                <a href="#">HTML</a>
-                <a href="#">TailwindCSS</a>
-                <a href="#">Javascript</a>
-                <a href="#">Google Fonts</a>
-                <a href="#">Fontawesome</a>
-            </div>
-        </div>
-        <div class="btns">
-            <a href="https://github.com/b4ssem/site-portfolio" target="_blank" class="btn"><i class="bxl bx-github"></i> GitHub</a>
-            <a href="https://b4ssem.com/" target="_blank" class="btn"><i class="bx bx-link"></i> Live Demo</a>
-        </div>
-      </div>
-
-    <div class="project-card">
-      <img src="images/WordPress dashboard design concept.jpg" alt="Blog Website">
-      <h3>Blog Website</h3>
-      <p>Clean and simple blogging platform with markdown support.</p>
-      <div class="skills">
-        <a href="#">HTML</a>
-        <a href="#">Tailwind</a>
-        <a href="#">JavaScript</a>
-      </div>
-      <div class="btns">
-            <a href="#" class="btn"><i class="bxl bx-github"></i> GitHub</a>
-            <a href="#" class="btn"><i class="bx bx-link"></i> Live Demo</a>
-      </div>
-    </div>
-
-    <div class="project-card">
-      <img src="images/Game Dashboard Design.jpg" alt="Game Landing Page">
-      <h3>Game Landing Page</h3>
-      <p>Landing page for a game with animations and parallax effects.</p>
-      <div class="skills">
-        <a href="#">HTML</a>
-        <a href="#">CSS</a>
-        <a href="#">GSAP</a>
-      </div>
-      <div class="btns">
-            <a href="#" class="btn"><i class="bxl bx-github"></i> GitHub</a>
-            <a href="#" class="btn"><i class="bx bx-link"></i> Live Demo</a>
-      </div>
-    </div>
-
-    <div class="project-card">
-      <img src="images/Task manager app.jpg" alt="Task Manager">
-      <h3>Task Manager</h3>
-      <p>Task tracking web app with CRUD features and clean UI.</p>
-      <div class="skills">
-        <a href="#">HTML</a>
-        <a href="#">CSS</a>
-        <a href="#">JS</a>
-      </div>
-      <div class="btns">
-            <a href="#" class="btn"><i class="bxl bx-github"></i> GitHub</a>
-            <a href="#" class="btn"><i class="bx bx-link"></i> Live Demo</a>
-      </div>
-    </div>
-  </div>
-
+            </section>
             <!--===== CONTACT =====-->
             <section class="contact section" id="contact">
                 <h2 class="section-title">Contact</h2>
