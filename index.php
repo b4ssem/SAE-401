@@ -208,7 +208,7 @@ $projects_list = getProjects($link);
                 <div class="contact__container bd-grid">
                     <div>
                         <p><span>*</span>Champ requis</p>
-                        <form action="includes/logic/logic_contact.php" method="POST" class="contact__form">
+                        <form action="" class="contact__form">
                             <?php 
                             
                             foreach($forms_list as $form){
