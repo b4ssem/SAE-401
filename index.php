@@ -30,48 +30,41 @@ $projects_list = getProjects($link);
 
         <link rel="stylesheet" href="assets/css/styles.css">
 
-        <!-- =====BOX ICONS===== -->
-        <!-- Basic Icons -->
         <link href="https://cdn.boxicons.com/3.0.8/fonts/basic/boxicons.min.css" rel="stylesheet">
-        <!-- Filled Icons -->
         <link href="https://cdn.boxicons.com/3.0.8/fonts/filled/boxicons-filled.min.css" rel="stylesheet">
-        <!-- Brand Icons -->
         <link href="https://cdn.boxicons.com/3.0.8/fonts/brands/boxicons-brands.min.css" rel="stylesheet">
 
         <title><?php echo htmlspecialchars($site_brand); ?> - Développeur Web</title>
     </head>
     <body>
-        <!--===== HEADER =====-->
        <header class="l-header">
-            <nav class="nav bd-grid">
+            <nav class="nav bd-container">
                 <div>
                     <a href="#" class="nav__logo"><?php echo htmlspecialchars($site_brand); ?></a>
                 </div>
 
                 <div class="nav__menu" id="nav-menu">
-                    <div class="nav__menu" id="nav-menu">
-                        <ul class="nav__list">
-                            <?php 
-                                $is_first = true;
+                    <ul class="nav__list">
+                        <?php 
+                            $is_first = true;
 
-                                foreach ($navbar_list as $nav) {
-                                    $label = htmlspecialchars($nav['label']);
-                                    $target = htmlspecialchars($nav['target']);
-                                    
-                                    if ($is_first) {
-                                        $active_class = "active-link";
-                                        $is_first = false;
-                                    } else {
-                                        $active_class = "";
-                                    }
-
-                                    echo '<li class="nav__item">
-                                            <a href="' . $target . '" class="nav__link ' . $active_class . '">' . $label . '</a>
-                                        </li>';
+                            foreach ($navbar_list as $nav) {
+                                $label = htmlspecialchars($nav['label']);
+                                $target = htmlspecialchars($nav['target']);
+                                
+                                if ($is_first) {
+                                    $active_class = "active-link";
+                                    $is_first = false;
+                                } else {
+                                    $active_class = "";
                                 }
-                            ?>
-                        </ul>
-                    </div>
+
+                                echo '<li class="nav__item">
+                                        <a href="' . $target . '" class="nav__link ' . $active_class . '">' . $label . '</a>
+                                    </li>';
+                            }
+                        ?>
+                    </ul>
                 </div>
 
                 <div class="nav__toggle" id="nav-toggle">
@@ -81,7 +74,6 @@ $projects_list = getProjects($link);
         </header>
 
         <main class="l-main">
-            <!--===== HOME =====-->
             <section class="home bd-grid" id="home">
                 <div class="home__data">
                     <h1 class="home__title">Bonjour,<br>je suis <span class="home__title-color"><?php echo htmlspecialchars($site_brand); ?></span><br> Développeur Web</h1>
@@ -112,8 +104,7 @@ $projects_list = getProjects($link);
                 </div>
             </section>
 
-            <!--===== ABOUT =====-->
-            <section class="about section " id="about">
+            <section class="about section" id="about">
                 <h2 class="section-title">A propos</h2>
 
                 <div class="about__container bd-grid">
@@ -123,12 +114,11 @@ $projects_list = getProjects($link);
                     
                     <div>
                         <h2 class="about__subtitle">Je suis Bassem MEGHICHE</h2>
-                        <p class="about__text">Développeur web fullstack en formation (BUT2 MMI). J’aime concevoir des expériences simples et efficaces, du design à la logique serveur.</p>           
+                        <p class="about__text">Développeur web fullstack en formation (BUT2 MMI). J'aime concevoir des expériences simples et efficaces, du design à la logique serveur.</p>           
                     </div>                                   
                 </div>
             </section>
 
-            <!--===== SKILLS =====-->
             <section class="skills section" id="skills">
                 <h2 class="section-title">Skills</h2>
 
@@ -165,10 +155,9 @@ $projects_list = getProjects($link);
                 </div>
             </section>
 
-            <!--===== WORK =====-->
             <section class="work section" id="work">
                 <h2 class="section-title">Projets</h2>
-                <div class="work__container">
+                <div class="work__container bd-grid">
                 <?php 
                 
                 foreach($projects_list as $project){
@@ -207,40 +196,40 @@ $projects_list = getProjects($link);
                 ?>
             </div>
             </section>
-            <!--===== CONTACT =====-->
-            <section class="contact section" id="contact">
-                <h2 class="section-title">Contact</h2>
 
+            <section class="contact__section" id="contact">
+                <h2 class="section-title">Contact</h2>
+                <div class="contact__data bd-grid">
+                    <h3 class="contact__subtitle">Parlons de votre projet</h3>
+                    <p class="contact__text">Vous avez une idée de projet ou une opportunité professionnelle ? N'hésitez pas à me contacter pour en discuter !</p>
+                </div>
                 <div class="contact__container bd-grid">
-                    <form action="" class="contact__form">
-                        <input type="text" placeholder="Nom" class="contact__input">
-                        <input type="mail" placeholder="Email" class="contact__input">
-                        <textarea name="" id="" cols="0" rows="10" class="contact__input"></textarea>
-                        <button type="button" class="btn">Envoyer <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"  
-fill="currentColor" viewBox="0 0 24 24" >
-<!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
-<path d="M20.56 3.17c-.29-.2-.67-.23-.99-.08l-17 8.01a.999.999 0 0 0 .03 1.82L8 15.28V22l5.84-4.17 4.76 2.08c.13.06.26.08.4.08.18 0 .36-.05.52-.15a.99.99 0 0 0 .48-.79l1-15c.02-.35-.14-.69-.43-.89Zm-2.47 14.34-5.21-2.28L16 9l-7.65 4.25-2.93-1.28 13.47-6.34-.79 11.89Z"></path>
-</svg></button>
-                    </form>
+                    <div>
+                        <p><span>*</span>Champ requis</p>
+                        <form action="" class="contact__form">
+                            <label for="name"><span>*</span>Nom</label>
+                            <input type="text" placeholder="Nom" class="contact__input" id="name">
+                            <label for="email"><span>*</span>Email</label>
+                            <input type="email" placeholder="Email" class="contact__input" id="email">
+                            <label for="message"><span>*</span>Message</label>
+                            <textarea name="" id="message" cols="0" rows="10" class="contact__input" placeholder="Entrez votre message ici..."></textarea>
+                            <button type="button" class="btn">Envoyer <i class="bx bx-paper-plane"></i></button>
+                        </form>
+                    </div>
                 </div>
             </section>
         </main>
 
-        <!--===== FOOTER =====-->
         <footer class="footer">
             <p class="footer__title">B4ssem</p>
             <div class="footer__social">
-                <a href="https://www.linkedin.com/in/b4ssem/" class="footer__icon"><i class='bx bxl-linkedin' ></i></a>
-                <a href="https://github.com/b4ssem" class="footer__icon"><i class='bx bxl-github' ></i></a>
+                <a href="https://www.linkedin.com/in/b4ssem/" class="footer__icon"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://github.com/b4ssem" class="footer__icon"><i class='bx bxl-github'></i></a>
             </div>
             <p class="footer__copy">&#169; Bedimcode. All rigths reserved</p>
         </footer>
 
-
-        <!--===== SCROLL REVEAL =====-->
         <script src="https://unpkg.com/scrollreveal"></script>
-
-        <!--===== MAIN JS =====-->
         <script src="assets/js/main.js"></script>
     </body>
 </html>
