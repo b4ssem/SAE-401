@@ -7,6 +7,7 @@ require_once 'includes/navbar/navbar_brand.php';
 require_once 'includes/categories/categories_get.php';
 require_once 'includes/skills/skills_get.php';
 require_once 'includes/projects/projects_get.php';
+require_once 'includes/form/form_get.php';
 
 $link = getDbConnection();
 $result = getAllSocials($link);
@@ -17,6 +18,7 @@ if ($brandData && !empty($brandData['brand'])) {
     $site_brand = $brandData['brand'];
 }
 $categories = getCategories($link);
+$forms_list = getForm($link);
 $skills_list = getSkills($link);
 $projects_list = getProjects($link);
 
@@ -206,14 +208,35 @@ $projects_list = getProjects($link);
                 <div class="contact__container bd-grid">
                     <div>
                         <p><span>*</span>Champ requis</p>
-                        <form action="" class="contact__form">
-                            <label for="name"><span>*</span>Nom</label>
-                            <input type="text" placeholder="Nom" class="contact__input" id="name">
-                            <label for="email"><span>*</span>Email</label>
-                            <input type="email" placeholder="Email" class="contact__input" id="email">
-                            <label for="message"><span>*</span>Message</label>
-                            <textarea name="" id="message" cols="0" rows="10" class="contact__input" placeholder="Entrez votre message ici..."></textarea>
-                            <button type="button" class="btn">Envoyer <i class="bx bx-paper-plane"></i></button>
+                        <form action="includes/logic/logic_contact.php" method="POST" class="contact__form">
+                            <?php 
+                            
+                            foreach($forms_list as $form){
+                                $required_attr = ($form['is_required'] == 1) ? 'required' : '';
+                                $field_html = '';
+                                if ($form['type'] === 'textarea' && $required_attr === 'required') {
+                                    $field_html = '
+                                    <label><span>* </span>'. htmlspecialchars($form['label']) .'</label>
+                                    <textarea name="'. htmlspecialchars($form['name_attribute']) .'" cols="0" rows="10" class="contact__input" placeholder="'. htmlspecialchars($form['label']) .'" '. $required_attr .'></textarea>';
+                                } elseif ($form['type'] === 'textarea') {
+                                    $field_html = '
+                                    <label>'. htmlspecialchars($form['label']) .'</label>
+                                    <textarea name="'. htmlspecialchars($form['name_attribute']) .'" cols="0" rows="10" class="contact__input" placeholder="'. htmlspecialchars($form['label']) .'"></textarea>';
+                                } elseif ($required_attr === 'required') {
+                                    $field_html = '
+                                    <label><span>* </span>'. htmlspecialchars($form['label']) .'</label>
+                                    <input type="'. htmlspecialchars($form['type']) .'" name="'. htmlspecialchars($form['name_attribute']) .'" class="contact__input" placeholder="'. htmlspecialchars($form['label']) .'" '. $required_attr .'>';
+                                }
+                                else {
+                                    $field_html = '
+                                    <label><span>* </span>'. htmlspecialchars($form['label']) .'</label>
+                                    <input type="'. htmlspecialchars($form['type']) .'" name="'. htmlspecialchars($form['name_attribute']) .'" class="contact__input" placeholder="'. htmlspecialchars($form['label']) .'" '. $required_attr .'>';
+                                }
+                                echo $field_html;
+                            }
+
+                            ?>
+                            <button type="submit" class="btn">Envoyer <i class='bx bx-paper-plane'></i></button>
                         </form>
                     </div>
                 </div>
