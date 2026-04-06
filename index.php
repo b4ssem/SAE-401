@@ -39,6 +39,8 @@ $projects_list = getProjects($link);
         <!-- Brand Icons -->
         <link href="https://cdn.boxicons.com/3.0.8/fonts/brands/boxicons-brands.min.css" rel="stylesheet">
 
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
         <title><?php echo htmlspecialchars($site_brand); ?> - Développeur Web</title>
     </head>
     <body>
