@@ -9,6 +9,7 @@ require_once 'includes/skills/skills_get.php';
 require_once 'includes/projects/projects_get.php';
 
 $link = getDbConnection();
+require_once 'includes/messages/messages_send.php';
 $result = getAllSocials($link);
 $navbar_list = getNavbarLinks($link);
 $brandData = getNavbarBrand($link);
@@ -208,22 +209,36 @@ $projects_list = getProjects($link);
             </div>
             </section>
             <!--===== CONTACT =====-->
+
+        <?php if ($show_contact == 1): ?>
+
             <section class="contact section" id="contact">
                 <h2 class="section-title">Contact</h2>
 
                 <div class="contact__container bd-grid">
-                    <form action="" class="contact__form">
-                        <input type="text" placeholder="Nom" class="contact__input">
-                        <input type="mail" placeholder="Email" class="contact__input">
-                        <textarea name="" id="" cols="0" rows="10" class="contact__input"></textarea>
-                        <button type="button" class="btn">Envoyer <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"  
-fill="currentColor" viewBox="0 0 24 24" >
-<!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
-<path d="M20.56 3.17c-.29-.2-.67-.23-.99-.08l-17 8.01a.999.999 0 0 0 .03 1.82L8 15.28V22l5.84-4.17 4.76 2.08c.13.06.26.08.4.08.18 0 .36-.05.52-.15a.99.99 0 0 0 .48-.79l1-15c.02-.35-.14-.69-.43-.89Zm-2.47 14.34-5.21-2.28L16 9l-7.65 4.25-2.93-1.28 13.47-6.34-.79 11.89Z"></path>
-</svg></button>
+                    
+                    <div class="sent" style="<?= $sent_style; ?>">
+                        <p>✅ Votre message a bien été envoyé !</p>
+                    </div>
+                    <div class="error" style="<?= $error_style; ?>">
+                        <p>❌ Une erreur est survenue. Vérifiez vos champs.</p>
+                    </div>
+
+                    <form method="POST" action="#contact" class="contact__form">
+                        <input type="text" name="nom" placeholder="Nom" class="contact__input" required>
+                        <input type="email" name="email" placeholder="Email" class="contact__input" required>
+                        <textarea name="message" id="message" cols="0" rows="10" class="contact__input" placeholder="Votre message..." required></textarea>
+                        
+                        <button type="submit" class="btn">Envoyer 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.56 3.17c-.29-.2-.67-.23-.99-.08l-17 8.01a.999.999 0 0 0 .03 1.82L8 15.28V22l5.84-4.17 4.76 2.08c.13.06.26.08.4.08.18 0 .36-.05.52-.15a.99.99 0 0 0 .48-.79l1-15c.02-.35-.14-.69-.43-.89Zm-2.47 14.34-5.21-2.28L16 9l-7.65 4.25-2.93-1.28 13.47-6.34-.79 11.89Z"></path>
+                            </svg>
+                        </button>
                     </form>
                 </div>
             </section>
+
+        <?php endif; ?>
         </main>
 
         <!--===== FOOTER =====-->
