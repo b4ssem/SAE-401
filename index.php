@@ -89,7 +89,7 @@ $projects_list = getProjects($link);
                 <div class="home__data">
                     <h1 class="home__title">Bonjour,<br>je suis <span class="home__title-color"><?php echo htmlspecialchars($site_brand); ?></span><br> Développeur Web</h1>
 
-                    <a href="assets/pdf/Bassem MEGHICHE.pdf" class="button">Voir mon CV</a>
+                    <a href="assets/pdf/Bassem MEGHICHE.pdf" class="button" target="_blank">Voir mon CV</a>
                 </div>
 
                 <div class="home__social">
